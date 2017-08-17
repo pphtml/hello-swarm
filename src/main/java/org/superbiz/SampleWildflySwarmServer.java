@@ -7,6 +7,7 @@ import com.example.NoteResource;
 import com.example.Person;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.ClassLoaderAsset;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.wildfly.swarm.container.Container;
 import org.wildfly.swarm.datasources.DatasourcesFraction;
 import org.wildfly.swarm.jaxrs.JAXRSArchive;
@@ -53,6 +54,7 @@ public class SampleWildflySwarmServer {
         WARArchive war = ShrinkWrap.create(WARArchive.class);
         war.addPackages(true, Note.class.getPackage());
         war.addAsWebInfResource(new ClassLoaderAsset("META-INF/persistence.xml", SampleWildflySwarmServer.class.getClassLoader()), "classes/META-INF/persistence.xml");
+        war.addAsWebResource(EmptyAsset.INSTANCE, "beans.xml");
         container.deploy(war);
 //
 //        JaxRsDeployment appDeployment = new JaxRsDeployment();
